@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('seragam', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('nama');
+            $table->string('nama_seragam');
             $table->enum('kategori', ['1', '2', '3']);
             $table->text('foto');
             $table->timestamps();

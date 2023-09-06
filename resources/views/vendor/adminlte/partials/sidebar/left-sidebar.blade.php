@@ -2,7 +2,7 @@
 
     <!-- Brand Logo -->
     <a href="#" class="brand-link">
-        <img src="{{asset('storage/logo.png')}}" alt="Logo" class="brand-image img-circle">
+        <img src="{{asset('storage/icon.png')}}" alt="Logo" class="brand-image img-circle">
         <span class="brand-text font-weight-light">Manajemen Seragam</span>
     </a>
 
@@ -17,8 +17,8 @@
                         </a>
                     </li>
                 </li>
-                <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link">
+                <li class="nav-item has-treeview {{(request()->is('seragam')) ? 'menu-open' :''}}">
+                    <a href="#" class="nav-link {{(request()->is('seragam')) ? 'active' :''}}">
                       <i class="nav-icon fas fa-server"></i>
                       <p>
                         Data Master
@@ -27,8 +27,8 @@
                     </a>
                     <ul class="nav nav-treeview bg-secondary">
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="fas fa-school nav-icon"></i><p>Profil Sekolah</p>
+                            <a href="{{route('seragam.index')}}" class="nav-link {{(request()->is('seragam')) ? 'active' :''}}">
+                                <i class="fas fa-school nav-icon"></i><p>Seragam</p>
                             </a>
                         </li>
                         <li class="nav-item">

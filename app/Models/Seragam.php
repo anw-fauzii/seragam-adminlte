@@ -10,6 +10,6 @@ class Seragam extends Model
     use HasFactory;
     protected $table = "seragam";
     protected $fillable = [
-        'nama', 'kategori', 'foto'
+        'nama_seragam', 'kategori', 'foto'
     ];
 }

@@ -119,32 +119,44 @@
         <div class="col-md-8 mb-3">
             <div class="card shadow">
                 <div class="card-body">
-                    <h5 class="card-title mb-4 text-center">Daftar Seragam</h5>
+                    <h5 class="card-title mb-4 text-center">Pilihan Seragam</h5>
                     <div class="row">
-                        <div class="col-md-4 banner">
-                            <img src="{{asset('storage/SD/SD.jpg')}}" alt="Banner 1" class="img-fluid mb-3">
-                            <div class="banner-overlay">
-                                <div class="banner-text">
-                                    <h4>Seragam SD</h4>
-                                    <a href="{{route('list-seragam',3)}}" class="btn btn-primary">Shop Now</a>
+                        <!-- Product 1 -->
+                        <div class="col-md-4 mb-4">
+                            <div class="card product-card">
+                                <img src="{{asset('storage/seragam.jpg')}}" alt="Product 1" class="card-img-top product-image">
+                                <div class="card-body">
+                                    <h5 class="card-title product-name">Seragam Senin</h5>
+                                    <button class="btn btn-primary btn-show-modal" data-bs-toggle="modal" data-bs-target="#productModal">Lihat Detail</button>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4 banner">
-                            <img src="{{asset('storage/TK/TK.jpg')}}" alt="Banner 2" class="img-fluid mb-3">
-                            <div class="banner-overlay">
-                                <div class="banner-text">
-                                    <h4>Seragam TK</h4>
-                                    <a href="#" class="btn btn-primary">Shop Now</a>
+                        <!-- Product 2 -->
+                        <div class="col-md-4 mb-4">
+                            <div class="card product-card">
+                                <img src="{{asset('storage/seragam.jpg')}}" alt="Product 2" class="card-img-top product-image">
+                                <div class="card-body">
+                                    <h5 class="card-title product-name">Seragam Selasa</h5>
+                                    <button class="btn btn-primary btn-show-modal" data-bs-toggle="modal" data-bs-target="#productModal">Lihat Detail</button>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4 banner">
-                            <img src="{{asset('storage/PG/PG.jpg')}}" alt="Banner 3" class="img-fluid mb-3">
-                            <div class="banner-overlay">
-                                <div class="banner-text">
-                                    <h4>Seragam PG</h4>
-                                    <a href="#" class="btn btn-primary">Shop Now</a>
+                        <!-- Product 3 -->
+                        <div class="col-md-4 mb-4">
+                            <div class="card product-card">
+                                <img src="{{asset('storage/seragam.jpg')}}" alt="Product 3" class="card-img-top product-image">
+                                <div class="card-body">
+                                    <h5 class="card-title product-name">Seragam Rabu</h5>
+                                    <button class="btn btn-primary btn-show-modal" data-bs-toggle="modal" data-bs-target="#productModal">Lihat Detail</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="card product-card">
+                                <img src="{{asset('storage/seragam.jpg')}}" alt="Product 3" class="card-img-top product-image">
+                                <div class="card-body">
+                                    <h5 class="card-title product-name">Seragam Kamis</h5>
+                                    <button class="btn btn-primary btn-show-modal" data-bs-toggle="modal" data-bs-target="#productModal">Lihat Detail</button>
                                 </div>
                             </div>
                         </div>
@@ -200,6 +212,23 @@
                                     </tr>
                                 </tfoot>
                         </table>
+                </div>
+                <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" >
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h5 class="modal-title">Modal title</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                            <p>Modal body text goes here.</p>
+                            </div>
+                            <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

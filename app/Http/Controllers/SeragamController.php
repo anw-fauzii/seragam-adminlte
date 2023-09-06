@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Seragam;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class SeragamController extends Controller
 {
@@ -29,7 +30,21 @@ class SeragamController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'foto' => 'required|image|mimes:jpeg,jpg,png',
+            'kategori' => 'required',
+            'nama_seragam' => 'required',
+        ]);
+        if ($request->file('foto')) {
+            $file = $request->file('foto');
+            $file->storeAs('public/Foto Seragam', $file->hashName());
+        }
+        $sa = Seragam::create([
+            'nama_seragam' => $request->nama_seragam,
+            'kategori' => $request->kategori,
+            'foto' => $file->hashName(),
+        ]);
+        return redirect()->back()->with('success', 'Data berhasil disimpan');
     }
 
     /**
@@ -43,7 +58,7 @@ class SeragamController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Seragam $seragam)
+    public function edit($id)
     {
         //
     }
@@ -51,16 +66,39 @@ class SeragamController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Seragam $seragam)
+    public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'kategori' => 'required',
+            'nama_seragam' => 'required',
+        ]);
+        $seragam = Seragam::findOrFail($id);
+        if ($request->file('foto')) {
+            $file = $request->file('foto');
+            $file->storeAs('public/Foto Seragam', $file->hashName());
+            Storage::delete('public/Foto Seragam/' . $seragam->foto);
+            $seragam->update([
+                'nama_seragam' => $request->nama_seragam,
+                'kategori' => $request->kategori,
+                'foto' => $file->hashName(),
+            ]);
+        } else {
+            $seragam->update([
+                'nama_seragam' => $request->nama_seragam,
+                'kategori' => $request->kategori,
+            ]);
+        }
+        return redirect()->back()->with('success', 'Data berhasil diupdate');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Seragam $seragam)
+    public function destroy($id)
     {
-        //
+        $seragam = Seragam::findOrFail($id);
+        Storage::delete('public/Foto Seragam/' . $seragam->foto);
+        $seragam->delete();
+        return redirect()->back()->with('success', 'Data berhasil dihapus');
     }
 }

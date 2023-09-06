@@ -16,6 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/list-seragam/{id}', function () {
+    return view('frontend.show');
+})->name('list-seragam');
 
 Auth::routes();
 

@@ -106,5 +106,13 @@
     @yield('adminlte_js')
 
 </body>
-
+<script type="text/javascript">
+    @if (Session::has('success'))
+        toastr.success('{{ Session::get('success') }}');
+    @elseif(Session::has('error'))
+        toastr.error('{{ Session::get('error') }}');
+    @elseif(Session::has('warning'))
+        toastr.warning('{{ Session::get('warning') }}');
+    @endif
+</script>
 </html>
