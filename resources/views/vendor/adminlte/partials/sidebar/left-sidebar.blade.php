@@ -17,8 +17,8 @@
                         </a>
                     </li>
                 </li>
-                <li class="nav-item has-treeview {{(request()->is('seragam')) ? 'menu-open' :''}}">
-                    <a href="#" class="nav-link {{(request()->is('seragam')) ? 'active' :''}}">
+                <li class="nav-item has-treeview {{(request()->is('seragam','seragam-detail')) ? 'menu-open' :''}}">
+                    <a href="#" class="nav-link {{(request()->is('seragam','seragam-detail')) ? 'active' :''}}">
                       <i class="nav-icon fas fa-server"></i>
                       <p>
                         Data Master
@@ -32,8 +32,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="fas fa-user-tie nav-icon"></i><p>Guru</p>
+                            <a href="{{route('seragam-detail.index')}}" class="nav-link {{(request()->is('seragam-detail')) ? 'active' : ''}}">
+                                <i class="fas fa-user-tie nav-icon"></i><p>Stok</p>
                             </a>
                         </li>
                         <li class="nav-item">

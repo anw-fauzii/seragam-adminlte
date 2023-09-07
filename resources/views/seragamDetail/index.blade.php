@@ -1,17 +1,18 @@
 @extends('adminlte::page')
 
-@section('title', 'Seragam')
+@section('title', 'Stok Seragam')
 
 @section('content_header')
 <div class="container-fluid">
     <div class="row mb-2">
         <div class="col-sm-6">
-            <h1>Seragam</h1>
+            <h1>Stok Seragam</h1>
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
-                <li class="breadcrumb-item active">Seragam</li>
+                <li class="breadcrumb-item"><a href="{{route('seragam.index')}}">Seragam</a></li>
+                <li class="breadcrumb-item active">Stok Seragam</li>
             </ol>
         </div>
     </div>
@@ -26,43 +27,29 @@
         </button>
     </div>
     <div class="card-body">
-        <table id="example1" class="table table-bordered table-striped">
+        <table id="tabel" class="table table-bordered table-striped">
             <thead>
                 <tr>
                     <th>No</th>
                     <th>Unit</th>
                     <th>Seragam</th>
-                    <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
                 @php
                     $no=1;
                 @endphp
-                @forelse ($seragam as $item)
+                @forelse ($SeragamDetail as $item)
                     <tr>
                         <td>{{$no++}}</td>
-                        @if($item->kategori == 1)
+                        @if($item->seragam->kategori == 1)
                             <td>PG</td>
-                        @elseif($item->kategori == 2)
+                        @elseif($item->seragam->kategori == 2)
                             <td>TK</td>
-                        @elseif($item->kategori == 3)
+                        @elseif($item->seragam->kategori == 3)
                             <td>SD</td>
                         @endif
-                        <td>{{$item->nama_seragam}}</td>
-                        <td>
-                            <button type="button" class="btn-xs bg-gradient-primary " data-toggle="modal" data-target="#edit{{$item->id}}">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button type="button" class="btn-xs bg-gradient-success " data-toggle="modal" data-target="#show{{$item->id}}">
-                                <i class="fas fa-info"></i>
-                            </button>
-                            @include('seragamDetail.show')
-                            @include('seragam.edit')
-                            <a href="#" type="button"  data-id="{{ $item->id }}" class="btn-xs bg-gradient-danger delete">
-                                <i class="fas fa-trash"></i>
-                            </a>
-                        </td>
+                        <td>{{$item->seragam->nama_seragam}}</td>
                     </tr>
                 @empty
                 @endforelse
@@ -70,7 +57,7 @@
         </table>
     </div>
 </div>
-@include('seragam.create')
+@include('seragamDetail.create')
 @stop
 
 @section('css')
@@ -80,9 +67,18 @@
 @section('js')
 <script>
     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-    
+    var angkaInput = document.getElementById('harga');
+
+    angkaInput.addEventListener('input', function () {
+        var value = angkaInput.value.replace(/\D/g, '');
+        angkaInput.value = formatRibuan(value);
+    });
+
+    function formatRibuan(angka) {
+        return angka.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    }
     $(function () {
-        $('#example1').DataTable({
+        $('#tabel').DataTable({
             "paging": true,
             "lengthChange": false,
             "searching": true,

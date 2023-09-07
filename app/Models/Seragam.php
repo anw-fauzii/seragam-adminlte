@@ -12,4 +12,9 @@ class Seragam extends Model
     protected $fillable = [
         'nama_seragam', 'kategori', 'foto'
     ];
+
+    public function seragam_detail()
+    {
+        return $this->hasMany(SeragamDetail::class);
+    }
 }
