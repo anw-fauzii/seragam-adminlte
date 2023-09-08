@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Seragam;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -11,10 +12,6 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
 
     /**
      * Show the application dashboard.
@@ -24,5 +21,11 @@ class HomeController extends Controller
     public function index()
     {
         return view('home');
+    }
+
+    public function list($id)
+    {
+        $Seragam = Seragam::where('kategori', $id)->get();
+        return view('frontend.show', compact('Seragam'));
     }
 }

@@ -8,25 +8,41 @@
                 </button>
             </div>
             <div class="modal-body">
-                <table>
-                    <thead>
-                        <tr>
-                            <td>asd</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @php
-                            $no=1;
-                        @endphp
-                        @forelse ($item->seragam_detail as $detail)
-                            <tr>
-                                <td>{{$detail->harga}}</td>
-                            </tr>
-                        @empty
-                            
-                        @endforelse
-                    </tbody>
-                </table>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <img src="{{asset('storage/Foto Seragam/'. $item->foto)}}" alt="" width="100%" srcset="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <table id="tabel{{$item->id}}" class="table table-bordered table-striped" data-datatable="true">
+                            <thead>
+                                <tr>
+                                    <th>Ukuran</th>
+                                    <th>Stok Tersedia</th>
+                                    <th>Harga</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @php
+                                    $no=1;
+                                @endphp
+                                @forelse ($item->seragam_detail as $detail)
+                                    <tr>
+                                        <td>{{$detail->ukuran}}</td>
+                                        <td>{{$detail->stok}}</td>
+                                        <td>Rp. {{ number_format($detail->harga) }}</td>
+                                    </tr>
+                                @empty
+                                    
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>

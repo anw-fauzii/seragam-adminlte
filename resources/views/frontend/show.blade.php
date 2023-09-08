@@ -121,45 +121,17 @@
                 <div class="card-body">
                     <h5 class="card-title mb-4 text-center">Pilihan Seragam</h5>
                     <div class="row">
-                        <!-- Product 1 -->
-                        <div class="col-md-4 mb-4">
-                            <div class="card product-card">
-                                <img src="{{asset('storage/seragam.jpg')}}" alt="Product 1" class="card-img-top product-image">
-                                <div class="card-body">
-                                    <h5 class="card-title product-name">Seragam Senin</h5>
-                                    <button class="btn btn-primary btn-show-modal" data-bs-toggle="modal" data-bs-target="#productModal">Lihat Detail</button>
+                        @foreach ($Seragam as $item)
+                            <div class="col-md-4 mb-4">
+                                <div class="card product-card">
+                                    <img src="{{asset('storage/Foto Seragam/'. $item->foto)}}" alt="Product 1"  width="100%" class="card-img-top product-image">
+                                    <div class="card-body">
+                                        <h5 class="card-title product-name">{{$item->nama_seragam}}</h5>
+                                        <button class="btn btn-primary btn-show-modal" data-bs-toggle="modal" data-bs-target="#productModal">Lihat Detail</button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <!-- Product 2 -->
-                        <div class="col-md-4 mb-4">
-                            <div class="card product-card">
-                                <img src="{{asset('storage/seragam.jpg')}}" alt="Product 2" class="card-img-top product-image">
-                                <div class="card-body">
-                                    <h5 class="card-title product-name">Seragam Selasa</h5>
-                                    <button class="btn btn-primary btn-show-modal" data-bs-toggle="modal" data-bs-target="#productModal">Lihat Detail</button>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Product 3 -->
-                        <div class="col-md-4 mb-4">
-                            <div class="card product-card">
-                                <img src="{{asset('storage/seragam.jpg')}}" alt="Product 3" class="card-img-top product-image">
-                                <div class="card-body">
-                                    <h5 class="card-title product-name">Seragam Rabu</h5>
-                                    <button class="btn btn-primary btn-show-modal" data-bs-toggle="modal" data-bs-target="#productModal">Lihat Detail</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 mb-4">
-                            <div class="card product-card">
-                                <img src="{{asset('storage/seragam.jpg')}}" alt="Product 3" class="card-img-top product-image">
-                                <div class="card-body">
-                                    <h5 class="card-title product-name">Seragam Kamis</h5>
-                                    <button class="btn btn-primary btn-show-modal" data-bs-toggle="modal" data-bs-target="#productModal">Lihat Detail</button>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>

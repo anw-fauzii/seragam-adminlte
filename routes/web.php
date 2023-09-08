@@ -16,12 +16,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/list-seragam/{id}', function () {
-    return view('frontend.show');
-})->name('list-seragam');
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/list-seragam/{id}', [App\Http\Controllers\HomeController::class, 'list'])->name('listSeragam');
 Route::resource('/seragam', App\Http\Controllers\SeragamController::class);
 Route::resource('/seragam-detail', App\Http\Controllers\SeragamDetailController::class);

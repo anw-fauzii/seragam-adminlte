@@ -26,7 +26,7 @@
         </button>
     </div>
     <div class="card-body">
-        <table id="example1" class="table table-bordered table-striped">
+        <table id="tabel" class="table table-bordered table-striped">
             <thead>
                 <tr>
                     <th>No</th>
@@ -82,7 +82,7 @@
     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
     
     $(function () {
-        $('#example1').DataTable({
+        $('#tabel').DataTable({
             "paging": true,
             "lengthChange": false,
             "searching": true,
@@ -90,6 +90,10 @@
             "info": true,
             "autoWidth": false,
             "responsive": true,
+        });
+        $('table[data-datatable="true"]').each(function() {
+            var tableId = $(this).attr('id');
+            $('#' + tableId).DataTable();
         });
         $('.select2').select2({
             theme : 'bootstrap4',

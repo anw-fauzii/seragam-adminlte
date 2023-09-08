@@ -18,6 +18,8 @@ return new class extends Migration
             $table->integer('stok');
             $table->integer('harga')->nullable();
             $table->timestamps();
+
+            $table->foreign('seragam_id')->references('id')->on('seragam');
         });
     }
 
