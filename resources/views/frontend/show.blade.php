@@ -122,15 +122,21 @@
                     <h5 class="card-title mb-4 text-center">Pilihan Seragam</h5>
                     <div class="row">
                         @foreach ($Seragam as $item)
-                            <div class="col-md-4 mb-4">
+                            <div class="col-md-3 mb-4">
                                 <div class="card product-card">
+                                    @if ($item->foto)
                                     <img src="{{asset('storage/Foto Seragam/'. $item->foto)}}" alt="Product 1"  width="100%" class="card-img-top product-image">
+                                    @else
+                                    <img src="{{asset('storage/error.jpeg')}}" alt="Product 1"  width="100%" class="card-img-top product-image">
+                                    @endif
+
                                     <div class="card-body">
                                         <h5 class="card-title product-name">{{$item->nama_seragam}}</h5>
-                                        <button class="btn btn-primary btn-show-modal" data-bs-toggle="modal" data-bs-target="#productModal">Lihat Detail</button>
+                                        <button class="btn btn-primary btn-show-modal" data-bs-toggle="modal" data-bs-target="#productModal{{$item->id}}">Lihat Detail</button>
                                     </div>
                                 </div>
                             </div>
+                            @include('frontend.modal')
                         @endforeach
                     </div>
                 </div>
@@ -141,67 +147,51 @@
             <div class="card shadow">
                 <div class="card-body">
                     <h5 class="card-title mb-4 text-center">Pesanan Anda</h5>
-                        <table class="table table-sm" width="100%">
-                                <thead>
-                                    <tr class="text-center">
-                                        <th scope="col" width="5">#</th>
-                                        <th scope="col" width="40">Barang</th>
-                                        <th scope="col" width="10">Qty</th>
-                                        <th scope="col" width="40">Harga</th>
-                                        <th scope="col" width="5">X</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="table-group-divider">
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>Seragam Merah Putih SD</td>
-                                        <td class="text-center">1</td>
-                                        <td>Rp. 150,000</td>
-                                        <td class="text-center">X</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>Seragam Olahraga SD</td>
-                                        <td class="text-center">1</td>
-                                        <td>Rp. 175,000</td>
-                                        <td class="text-center">X</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>Seragam Olahraga TK</td>
-                                        <td class="text-center">1</td>
-                                        <td>Rp. 100,000</td>
-                                        <td class="text-center">X</td>
-                                    </tr>
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th colspan="3">Total</th>
-                                        <th colspan="2">Rp. 425,000</th>
-                                    </tr>
-                                    <tr>
-                                        <th colspan="5" class="text-center"><button class="btn btn-primary btn-shop-now"  id="deleteButton">Pesan</button></th>
-                                    </tr>
-                                </tfoot>
-                        </table>
+                    <table class="table table-sm" width="100%">
+                            <thead>
+                                <tr class="text-center">
+                                    <th scope="col" width="5">#</th>
+                                    <th scope="col" width="40">Barang</th>
+                                    <th scope="col" width="10">Qty</th>
+                                    <th scope="col" width="40">Harga</th>
+                                    <th scope="col" width="5">X</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-group-divider">
+                                <tr>
+                                    <th scope="row">1</th>
+                                    <td>Seragam Merah Putih SD</td>
+                                    <td class="text-center">1</td>
+                                    <td>Rp. 150,000</td>
+                                    <td class="text-center">X</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td>Seragam Olahraga SD</td>
+                                    <td class="text-center">1</td>
+                                    <td>Rp. 175,000</td>
+                                    <td class="text-center">X</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td>Seragam Olahraga TK</td>
+                                    <td class="text-center">1</td>
+                                    <td>Rp. 100,000</td>
+                                    <td class="text-center">X</td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th colspan="3">Total</th>
+                                    <th colspan="2">Rp. 425,000</th>
+                                </tr>
+                                <tr>
+                                    <th colspan="5" class="text-center"><button class="btn btn-primary btn-shop-now"  id="deleteButton">Pesan</button></th>
+                                </tr>
+                            </tfoot>
+                    </table>
                 </div>
-                <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-lg" >
-                        <div class="modal-content">
-                            <div class="modal-header">
-                            <h5 class="modal-title">Modal title</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                            <p>Modal body text goes here.</p>
-                            </div>
-                            <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                
             </div>
         </div>
     </div>

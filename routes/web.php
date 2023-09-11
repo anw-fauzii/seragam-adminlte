@@ -23,3 +23,4 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/list-seragam/{id}', [App\Http\Controllers\HomeController::class, 'list'])->name('listSeragam');
 Route::resource('/seragam', App\Http\Controllers\SeragamController::class);
 Route::resource('/seragam-detail', App\Http\Controllers\SeragamDetailController::class);
+Route::resource('/keranjang', App\Http\Controllers\KeranjangController::class);
