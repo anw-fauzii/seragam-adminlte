@@ -157,49 +157,54 @@
             <div class="card shadow">
                 <div class="card-body">
                     <h5 class="card-title mb-4 text-center">Pesanan Anda</h5>
-                        <table class="table table-sm" width="100%">
-                                <thead>
-                                    <tr class="text-center">
-                                        <th scope="col" width="5">#</th>
-                                        <th scope="col" width="40">Barang</th>
-                                        <th scope="col" width="10">Qty</th>
-                                        <th scope="col" width="40">Harga</th>
-                                        <th scope="col" width="5">X</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="table-group-divider">
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>Seragam Merah Putih SD</td>
-                                        <td class="text-center">1</td>
-                                        <td>Rp. 150,000</td>
-                                        <td class="text-center">X</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>Seragam Olahraga SD</td>
-                                        <td class="text-center">1</td>
-                                        <td>Rp. 175,000</td>
-                                        <td class="text-center">X</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>Seragam Olahraga TK</td>
-                                        <td class="text-center">1</td>
-                                        <td>Rp. 100,000</td>
-                                        <td class="text-center">X</td>
-                                    </tr>
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th colspan="3">Total</th>
-                                        <th colspan="2">Rp. 425,000</th>
-                                    </tr>
-                                    <tr>
-                                        <th colspan="5" class="text-center"><button class="btn btn-primary btn-shop-now"  id="deleteButton">Pesan</button></th>
-                                    </tr>
-                                </tfoot>
-                        </table>
+                    <table class="table table-sm" width="100%">
+                        <thead>
+                            <tr class="text-center">
+                                <th scope="col" width="5">#</th>
+                                <th scope="col" width="40">Barang</th>
+                                <th scope="col" width="10">Qty</th>
+                                <th scope="col" width="40">Harga</th>
+                                <th scope="col" width="5">X</th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-group-divider">
+                            @php
+                                $no = 1;
+                            @endphp
+                            @forelse ($Keranjang as $item) 
+                                <tr>
+                                    <th scope="row">{{$no++}}</th>
+                                    <td>{{$item->seragam_detail->seragam->nama_seragam}} ({{$item->ukuran}})</td>
+                                    <td class="text-center">{{$item->jumlah}}</td>
+                                    <td>Rp. {{number_format($item->subtotal)}}</td>
+                                    <td class="text-center">
+                                        <a href="#" data-id="{{ $item->id }}" role="button" data-bs-toggle="button" class="btn btn-sm btn-danger delete">
+                                            X
+                                        </a>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="5" class="text-center">Tidak ada data</td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th colspan="3">Total</th>
+                                <th colspan="2">Rp. {{number_format($Keranjang->sum('subtotal'))}}</th>
+                            </tr>
+                            @if ($Keranjang->count() != 0)
+                                <tr>
+                                    <th colspan="5" class="text-center">
+                                        <a href="#" role="button" data-bs-toggle="button" class="btn btn-sm btn-danger checkout">
+                                            Pesan Sekarang
+                                        </a>
+                                    </th>
+                                </tr>
+                            @endif
+                        </tfoot>
+                    </table>
                 </div>
             </div>
         </div>
@@ -212,42 +217,41 @@
 </footer>
 </body>
 <script>
-    document.getElementById("deleteButton").addEventListener("click", function() {
-        const swalWithBootstrapButtons = Swal.mixin({
-        customClass: {
-            confirmButton: 'btn btn-success',
-            cancelButton: 'btn btn-danger'
-        },
-        buttonsStyling: false
-        })
-
-        swalWithBootstrapButtons.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Yes, delete it!',
-        cancelButtonText: 'No, cancel!',
-        reverseButtons: true
-        }).then((result) => {
-        if (result.isConfirmed) {
-            swalWithBootstrapButtons.fire(
-            'Deleted!',
-            'Your file has been deleted.',
-            'success'
-            )
-        } else if (
-            /* Read more about handling dismissals below */
-            result.dismiss === Swal.DismissReason.cancel
-        ) {
-            swalWithBootstrapButtons.fire(
-            'Cancelled',
-            'Your imaginary file is safe :)',
-            'error'
-            )
-        }
-        })
-
+    document.querySelectorAll('.delete').forEach(function(element) {
+        element.addEventListener('click', function(e) {
+            e.preventDefault();
+            const itemId = element.getAttribute('data-id');
+            Swal.fire({
+                title: 'Apakah Anda yakin?',
+                text: "Item ini akan dihapus!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Ya, hapus!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const deleteUrl = '{{ route('hapusKeranjang', ':itemId') }}';
+                    window.location.href = deleteUrl.replace(':itemId', itemId);
+                }
+            });
+        });
+    });
+    document.querySelectorAll('.checkout').forEach(function(element) {
+        element.addEventListener('click', function(e) {
+            e.preventDefault();
+            Swal.fire({
+                title: 'Apakah Anda yakin?',
+                text: "Coba Periksa Kembali Pesanan Anda",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Ya, pesan!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '{{ route('checkout') }}';
+                }
+            });
+        });
     });
 </script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

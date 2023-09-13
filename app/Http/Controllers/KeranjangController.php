@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Keranjang;
+use App\Models\SeragamDetail;
 use Illuminate\Http\Request;
 
 class KeranjangController extends Controller
@@ -28,7 +29,17 @@ class KeranjangController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $cekHarga = SeragamDetail::findOrFail($request->seragam_id);
+        $ukuran = $request->ukuran[$cekHarga->seragam_id];
+        $sa = Keranjang::create([
+            'seragam_detail_id' => $request->seragam_detail_id[$ukuran],
+            'ukuran' => $ukuran,
+            'jumlah' => $request->jumlah,
+            'catatan' => $request->catatan,
+            'ip_pelanggan' => $request->getClientIp(),
+            'subtotal' => $cekHarga->harga * $request->jumlah,
+        ]);
+        return redirect()->back()->with('success', 'Data berhasil disimpan');
     }
 
     /**

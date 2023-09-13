@@ -13,14 +13,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/list-seragam/{id}', [App\Http\Controllers\FrontEndController::class, 'list'])->name('listSeragam');
+Route::get('/', [App\Http\Controllers\FrontEndController::class, 'welcome'])->name('welcome');
+Route::get('/checkout', [App\Http\Controllers\FrontEndController::class, 'checkout'])->name('checkout');
+Route::get('/hapus-keranjang/{id}', [App\Http\Controllers\FrontEndController::class, 'hapus'])->name('hapusKeranjang');
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/list-seragam/{id}', [App\Http\Controllers\HomeController::class, 'list'])->name('listSeragam');
 Route::resource('/seragam', App\Http\Controllers\SeragamController::class);
 Route::resource('/seragam-detail', App\Http\Controllers\SeragamDetailController::class);
 Route::resource('/keranjang', App\Http\Controllers\KeranjangController::class);

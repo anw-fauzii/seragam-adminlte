@@ -13,8 +13,8 @@ class Keranjang extends Model
         'seragam_detail_id', 'ukuran', 'jumlah', 'subtotal', 'catatan', 'ip_pelanggan'
     ];
 
-    public function seragam()
+    public function seragam_detail()
     {
-        return $this->belongsTo(Seragam::class);
+        return $this->belongsTo(SeragamDetail::class);
     }
 }
