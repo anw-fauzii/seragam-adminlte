@@ -119,43 +119,6 @@
         <div class="col-md-8 mb-3">
             <div class="card shadow">
                 <div class="card-body">
-                    <h5 class="card-title mb-4 text-center">Daftar Seragam</h5>
-                    <div class="row">
-                        <div class="col-md-4 banner">
-                            <img src="{{asset('storage/SD/SD.jpg')}}" alt="Banner 1" class="img-fluid mb-3">
-                            <div class="banner-overlay">
-                                <div class="banner-text">
-                                    <h4>Seragam SD</h4>
-                                    <a href="{{route('listSeragam',3)}}" class="btn btn-primary">Shop Now</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 banner">
-                            <img src="{{asset('storage/TK/TK.jpg')}}" alt="Banner 2" class="img-fluid mb-3">
-                            <div class="banner-overlay">
-                                <div class="banner-text">
-                                    <h4>Seragam TK</h4>
-                                    <a href="{{route('listSeragam',2)}}" class="btn btn-primary">Shop Now</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 banner">
-                            <img src="{{asset('storage/PG/PG.jpg')}}" alt="Banner 3" class="img-fluid mb-3">
-                            <div class="banner-overlay">
-                                <div class="banner-text">
-                                    <h4>Seragam PG</h4>
-                                    <a href="{{route('listSeragam',1)}}" class="btn btn-primary">Shop Now</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Card 2: Order List -->
-        <div class="col-md-4 mb-5">
-            <div class="card shadow">
-                <div class="card-body">
                     <h5 class="card-title mb-4 text-center">Pesanan Anda</h5>
                     <table class="table table-sm" width="100%">
                         <thead>
@@ -163,8 +126,8 @@
                                 <th scope="col" width="5">#</th>
                                 <th scope="col" width="40">Barang</th>
                                 <th scope="col" width="10">Qty</th>
-                                <th scope="col" width="40">Harga</th>
-                                <th scope="col" width="5">X</th>
+                                <th scope="col" width="20">Hrg. Satuan</th>
+                                <th scope="col" width="20">Subtotal</th>
                             </tr>
                         </thead>
                         <tbody class="table-group-divider">
@@ -176,12 +139,8 @@
                                     <th scope="row">{{$no++}}</th>
                                     <td>{{$item->seragam_detail->seragam->nama_seragam}} ({{$item->ukuran}})</td>
                                     <td class="text-center">{{$item->jumlah}}</td>
+                                    <td>{{number_format($item->seragam_detail->harga)}}</td>
                                     <td>{{number_format($item->subtotal)}}</td>
-                                    <td class="text-center">
-                                        <a href="#" data-id="{{ $item->id }}" role="button" data-bs-toggle="button" class="btn btn-sm btn-danger delete">
-                                            X
-                                        </a>
-                                    </td>
                                 </tr>
                             @empty
                                 <tr>
@@ -191,20 +150,33 @@
                         </tbody>
                         <tfoot>
                             <tr>
-                                <th colspan="3">Total</th>
+                                <th colspan="4">Total</th>
                                 <th colspan="2">Rp. {{number_format($Keranjang->sum('subtotal'))}}</th>
                             </tr>
-                            @if ($Keranjang->count() != 0)
-                                <tr>
-                                    <th colspan="5" class="text-center">
-                                        <a href="{{route('keranjang.index')}}"class="btn btn-sm btn-danger">
-                                            Pesan Sekarang
-                                        </a>
-                                    </th>
-                                </tr>
-                            @endif
                         </tfoot>
                     </table>
+                </div>
+            </div>
+        </div>
+        <!-- Card 2: Order List -->
+        <div class="col-md-4 mb-5">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h5 class="card-title mb-4 text-center">Data Siswa</h5>
+                    <table class="table" width="100%">
+                        <tr>
+                            <td>Nama</td>
+                            <td><input type="text" class="form-control" name="nama" id="nama"></td>
+                        </tr>
+                        <tr>
+                            <td>Kelas</td>
+                            <td><input type="text" class="form-control" name="kelas" id="kelas"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="text-center"><button class="btn btn-primary btn-show-modal" data-bs-toggle="modal" data-bs-target="#konfirmasi">Lihat Detail</button></td>
+                        </tr>
+                    </table>
+                    @include('frontend.konfirmasi')
                 </div>
             </div>
         </div>
@@ -217,24 +189,13 @@
 </footer>
 </body>
 <script>
-    document.querySelectorAll('.delete').forEach(function(element) {
-        element.addEventListener('click', function(e) {
-            e.preventDefault();
-            const itemId = element.getAttribute('data-id');
-            Swal.fire({
-                title: 'Apakah Anda yakin?',
-                text: "Item ini akan dihapus!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Ya, hapus!',
-                cancelButtonText: 'Batal'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    const deleteUrl = '{{ route('hapusKeranjang', ':itemId') }}';
-                    window.location.href = deleteUrl.replace(':itemId', itemId);
-                }
-            });
-        });
+    // Fungsi untuk menampilkan data nama dan kelas di modal
+    document.querySelector('.btn-show-modal').addEventListener('click', function() {
+        const nama = document.getElementById('nama').value;
+        const kelas = document.getElementById('kelas').value;
+        
+        document.getElementById('modalNama').value = nama;
+        document.getElementById('modalKelas').value = kelas;
     });
 </script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

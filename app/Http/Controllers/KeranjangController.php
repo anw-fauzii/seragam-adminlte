@@ -11,9 +11,10 @@ class KeranjangController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $Keranjang = Keranjang::where('ip_pelanggan', $request->getClientIp())->get();
+        return view('frontend.checkout', compact('Keranjang'));
     }
 
     /**

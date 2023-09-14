@@ -166,7 +166,7 @@
                                         <th scope="row">{{$no++}}</th>
                                         <td>{{$item->seragam_detail->seragam->nama_seragam}} ({{$item->ukuran}})</td>
                                         <td class="text-center">{{$item->jumlah}}</td>
-                                        <td>Rp. {{number_format($item->subtotal)}}</td>
+                                        <td>{{number_format($item->subtotal)}}</td>
                                         <td class="text-center">
                                             <a href="#" data-id="{{ $item->id }}" role="button" data-bs-toggle="button" class="btn btn-sm btn-danger delete">
                                                 X
@@ -187,7 +187,7 @@
                                 @if ($Keranjang->count() != 0)
                                     <tr>
                                         <th colspan="5" class="text-center">
-                                            <a href="#" role="button" data-bs-toggle="button" class="btn btn-sm btn-danger checkout">
+                                            <a href="{{route('keranjang.index')}}"class="btn btn-sm btn-danger">
                                                 Pesan Sekarang
                                             </a>
                                         </th>
@@ -222,23 +222,6 @@
                 if (result.isConfirmed) {
                     const deleteUrl = '{{ route('hapusKeranjang', ':itemId') }}';
                     window.location.href = deleteUrl.replace(':itemId', itemId);
-                }
-            });
-        });
-    });
-    document.querySelectorAll('.checkout').forEach(function(element) {
-        element.addEventListener('click', function(e) {
-            e.preventDefault();
-            Swal.fire({
-                title: 'Apakah Anda yakin?',
-                text: "Coba Periksa Kembali Pesanan Anda",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Ya, pesan!',
-                cancelButtonText: 'Batal'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = '{{ route('checkout') }}';
                 }
             });
         });
