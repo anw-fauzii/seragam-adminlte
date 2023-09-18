@@ -166,14 +166,14 @@
                     <table class="table" width="100%">
                         <tr>
                             <td>Nama</td>
-                            <td><input type="text" class="form-control" name="nama" id="nama"></td>
+                            <td><input type="text" class="form-control" required name="nama" id="nama"></td>
                         </tr>
                         <tr>
                             <td>Kelas</td>
-                            <td><input type="text" class="form-control" name="kelas" id="kelas"></td>
+                            <td><input type="text" class="form-control" required name="kelas" id="kelas"></td>
                         </tr>
                         <tr>
-                            <td colspan="2" class="text-center"><button class="btn btn-primary btn-show-modal" data-bs-toggle="modal" data-bs-target="#konfirmasi">Lihat Detail</button></td>
+                            <td colspan="2" class="text-center"><button class="btn btn-primary btn-show-modal" data-bs-toggle="modal" data-bs-target="#konfirmasi">Konfirmasi</button></td>
                         </tr>
                     </table>
                     @include('frontend.konfirmasi')

@@ -30,15 +30,16 @@ class KeranjangController extends Controller
      */
     public function store(Request $request)
     {
-        $cekHarga = SeragamDetail::findOrFail($request->seragam_id);
+        $cekHarga = SeragamDetail::find($request->seragam_id);
         $ukuran = $request->ukuran[$cekHarga->seragam_id];
-        $sa = Keranjang::create([
+        $hargaFix = SeragamDetail::where('ukuran', $ukuran)->first();
+        Keranjang::create([
             'seragam_detail_id' => $request->seragam_detail_id[$ukuran],
             'ukuran' => $ukuran,
             'jumlah' => $request->jumlah,
             'catatan' => $request->catatan,
             'ip_pelanggan' => $request->getClientIp(),
-            'subtotal' => $cekHarga->harga * $request->jumlah,
+            'subtotal' => $hargaFix->harga * $request->jumlah,
         ]);
         return redirect()->back()->with('success', 'Data berhasil disimpan');
     }

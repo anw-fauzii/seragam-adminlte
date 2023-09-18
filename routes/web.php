@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/list-seragam/{id}', [App\Http\Controllers\FrontEndController::class, 'list'])->name('listSeragam');
 Route::get('/', [App\Http\Controllers\FrontEndController::class, 'welcome'])->name('welcome');
-Route::get('/checkout', [App\Http\Controllers\FrontEndController::class, 'checkout'])->name('checkout');
+Route::post('/checkout', [App\Http\Controllers\FrontEndController::class, 'checkout'])->name('checkout');
 Route::get('/hapus-keranjang/{id}', [App\Http\Controllers\FrontEndController::class, 'hapus'])->name('hapusKeranjang');
 
 Auth::routes();

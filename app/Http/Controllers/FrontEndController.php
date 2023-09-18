@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Keranjang;
+use App\Models\Pesanan;
+use App\Models\PesananDetail;
 use App\Models\Seragam;
+use App\Models\SeragamDetail;
 use Illuminate\Http\Request;
+use PDF;
 
 class FrontEndController extends Controller
 {
@@ -31,6 +35,29 @@ class FrontEndController extends Controller
     public function checkout(Request $request)
     {
         $Keranjang = Keranjang::where('ip_pelanggan', $request->getClientIp())->get();
-        dd($Keranjang);
+        $pesanan = Pesanan::create([
+            'nama' => $request->nama,
+            'kelas' => $request->kelas,
+            'total_harga' => $Keranjang->sum('subtotal')
+        ]);
+        foreach ($Keranjang as $data) {
+            PesananDetail::create([
+                'pesanan_id' => $pesanan->id,
+                'seragam_detail_id' => $data->seragam_detail_id,
+                'jumlah' => $data->jumlah,
+                'catatan' => $data->catatan,
+                'ip_pelanggan' => $data->ip_pelanggan,
+                'subtotal' => $data->subtotal
+            ]);
+            $seragam = SeragamDetail::find($data->seragam_detail_id);
+            $seragam->update([
+                'stok' => $seragam->stok - $data->jumlah,
+            ]);
+        }
+        Keranjang::where('ip_pelanggan', $request->getClientIp())->delete();
+
+        $pdf = PDF::loadview('frontend.nota', compact('Keranjang'));
+        $pdf->download('nama-file.pdf');
+        return redirect()->route('welcome')->with('success', 'Data berhasil dipesankan');
     }
 }
