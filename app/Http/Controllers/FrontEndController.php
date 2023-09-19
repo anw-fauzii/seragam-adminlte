@@ -9,6 +9,7 @@ use App\Models\Seragam;
 use App\Models\SeragamDetail;
 use Illuminate\Http\Request;
 use PDF;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class FrontEndController extends Controller
 {
@@ -56,8 +57,10 @@ class FrontEndController extends Controller
         }
         Keranjang::where('ip_pelanggan', $request->getClientIp())->delete();
 
-        $pdf = PDF::loadview('frontend.nota', compact('Keranjang'));
-        $pdf->download('nama-file.pdf');
-        return redirect()->route('welcome')->with('success', 'Data berhasil dipesankan');
+        $pdf = PDF::loadView('frontend.nota', compact('Keranjang'));
+        $pdfPath = storage_path('app/public/notaPembelian/' . $pesanan->kode . '.pdf');
+        $pdf->save($pdfPath);
+        $pdfUrl = url('storage/notaPembelian/' . $pesanan->kode . '.pdf');
+        return redirect()->route('welcome')->with('pdfUrl', $pdfUrl)->with('success', 'Berhasil dipesan. Lihat filenya');;
     }
 }

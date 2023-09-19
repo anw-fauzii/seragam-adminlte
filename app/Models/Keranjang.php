@@ -10,7 +10,7 @@ class Keranjang extends Model
     use HasFactory;
     protected $table = 'keranjang';
     protected $fillable = [
-        'seragam_detail_id', 'ukuran', 'jumlah', 'subtotal', 'catatan', 'ip_pelanggan'
+        'seragam_detail_id', 'jumlah', 'subtotal', 'catatan', 'ip_pelanggan'
     ];
 
     public function seragam_detail()

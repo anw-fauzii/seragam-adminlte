@@ -119,6 +119,9 @@
         <!-- Card 1: Small Banners -->
         <div class="col-md-8 mb-3">
             <div class="card shadow">
+                <div class="card-header">
+                    <a href="{{route('welcome')}}" class="btn btn-sm btn-danger">Beranda</a>
+                </div>
                 <div class="card-body">
                     <h5 class="card-title mb-4 text-center">Pilihan Seragam</h5>
                     <div class="row">
@@ -132,7 +135,11 @@
                                     @endif
                                     <div class="card-body">
                                         <h5 class="card-title product-name">{{$item->nama_seragam}}</h5>
-                                        <button class="btn btn-primary btn-show-modal" data-bs-toggle="modal" data-bs-target="#productModal{{$item->id}}">Lihat Detail</button>
+                                        @if ($item->seragam_detail->count() == 0)
+                                            <button class="btn btn-primary btn-show-modal" disabled data-bs-toggle="modal" data-bs-target="#productModal{{$item->id}}">Habis</button>
+                                        @else
+                                            <button class="btn btn-primary btn-show-modal" data-bs-toggle="modal" data-bs-target="#productModal{{$item->id}}">Lihat Detail</button>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -164,7 +171,7 @@
                                 @forelse ($Keranjang as $item) 
                                     <tr>
                                         <th scope="row">{{$no++}}</th>
-                                        <td>{{$item->seragam_detail->seragam->nama_seragam}} ({{$item->ukuran}})</td>
+                                        <td>{{$item->seragam_detail->seragam->nama_seragam}} ({{$item->seragam_detail->ukuran}})</td>
                                         <td class="text-center">{{$item->jumlah}}</td>
                                         <td>{{number_format($item->subtotal)}}</td>
                                         <td class="text-center">

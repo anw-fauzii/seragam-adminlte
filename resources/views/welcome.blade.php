@@ -174,7 +174,7 @@
                             @forelse ($Keranjang as $item) 
                                 <tr>
                                     <th scope="row">{{$no++}}</th>
-                                    <td>{{$item->seragam_detail->seragam->nama_seragam}} ({{$item->ukuran}})</td>
+                                    <td>{{$item->seragam_detail->seragam->nama_seragam}} ({{$item->seragam_detail->ukuran}})</td>
                                     <td class="text-center">{{$item->jumlah}}</td>
                                     <td>{{number_format($item->subtotal)}}</td>
                                     <td class="text-center">
@@ -236,6 +236,12 @@
             });
         });
     });
+    const pdfUrl = "{{ session('pdfUrl') }}";
+
+    // If the PDF URL is available, initiate the download
+    if (pdfUrl) {
+        const newTab = window.open(pdfUrl, '_blank');
+    }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

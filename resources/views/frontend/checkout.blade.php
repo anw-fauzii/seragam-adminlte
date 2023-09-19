@@ -118,6 +118,9 @@
         <!-- Card 1: Small Banners -->
         <div class="col-md-8 mb-3">
             <div class="card shadow">
+                <div class="card-header">
+                    <a href="{{ URL::previous() }}" class="btn btn-sm btn-danger">Beranda</a>
+                </div>
                 <div class="card-body">
                     <h5 class="card-title mb-4 text-center">Pesanan Anda</h5>
                     <table class="table table-sm" width="100%">
@@ -126,8 +129,9 @@
                                 <th scope="col" width="5">#</th>
                                 <th scope="col" width="40">Barang</th>
                                 <th scope="col" width="10">Qty</th>
-                                <th scope="col" width="20">Hrg. Satuan</th>
-                                <th scope="col" width="20">Subtotal</th>
+                                <th scope="col" width="10">Hrg. Satuan</th>
+                                <th scope="col" width="10">Subtotal</th>
+                                <th scope="col" width="20">Catatan</th>
                             </tr>
                         </thead>
                         <tbody class="table-group-divider">
@@ -137,10 +141,11 @@
                             @forelse ($Keranjang as $item) 
                                 <tr>
                                     <th scope="row">{{$no++}}</th>
-                                    <td>{{$item->seragam_detail->seragam->nama_seragam}} ({{$item->ukuran}})</td>
+                                    <td>{{$item->seragam_detail->seragam->nama_seragam}} ({{$item->seragam_detail->ukuran}})</td>
                                     <td class="text-center">{{$item->jumlah}}</td>
                                     <td>{{number_format($item->seragam_detail->harga)}}</td>
                                     <td>{{number_format($item->subtotal)}}</td>
+                                    <td>{{$item->catatan}}</td>
                                 </tr>
                             @empty
                                 <tr>

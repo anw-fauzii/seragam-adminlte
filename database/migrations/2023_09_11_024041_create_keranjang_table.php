@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('keranjang', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('seragam_detail_id');
-            $table->string('ukuran');
             $table->integer('jumlah');
             $table->integer('subtotal');
             $table->string('catatan')->nullable();

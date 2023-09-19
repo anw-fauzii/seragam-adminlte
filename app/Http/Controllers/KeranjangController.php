@@ -14,7 +14,11 @@ class KeranjangController extends Controller
     public function index(Request $request)
     {
         $Keranjang = Keranjang::where('ip_pelanggan', $request->getClientIp())->get();
-        return view('frontend.checkout', compact('Keranjang'));
+        if ($Keranjang->count() == 0) {
+            return redirect()->route('welcome')->with('warning', 'Maaf keranjang anda masih kosong');
+        } else {
+            return view('frontend.checkout', compact('Keranjang'));
+        }
     }
 
     /**
@@ -30,17 +34,26 @@ class KeranjangController extends Controller
      */
     public function store(Request $request)
     {
-        $cekHarga = SeragamDetail::find($request->seragam_id);
-        $ukuran = $request->ukuran[$cekHarga->seragam_id];
-        $hargaFix = SeragamDetail::where('ukuran', $ukuran)->first();
-        Keranjang::create([
-            'seragam_detail_id' => $request->seragam_detail_id[$ukuran],
-            'ukuran' => $ukuran,
-            'jumlah' => $request->jumlah,
-            'catatan' => $request->catatan,
-            'ip_pelanggan' => $request->getClientIp(),
-            'subtotal' => $hargaFix->harga * $request->jumlah,
-        ]);
+        $seragam = SeragamDetail::where('ukuran', $request->ukuran[$request->seragam_id])
+            ->where('seragam_id', $request->seragam_id)->first();
+        $Keranjang = Keranjang::where('ip_pelanggan', $request->getClientIp())
+            ->where('seragam_detail_id', $seragam->id)->first();
+        if ($Keranjang) {
+            $jumlahUpdate = $Keranjang->jumlah + $request->jumlah;
+            $Keranjang->update([
+                'jumlah' => $jumlahUpdate,
+                'catatan' => $request->catatan,
+                'subtotal' => $seragam->harga * $jumlahUpdate,
+            ]);
+        } else {
+            Keranjang::create([
+                'seragam_detail_id' => $seragam->id,
+                'jumlah' => $request->jumlah,
+                'catatan' => $request->catatan,
+                'ip_pelanggan' => $request->getClientIp(),
+                'subtotal' => $seragam->harga * $request->jumlah,
+            ]);
+        }
         return redirect()->back()->with('success', 'Data berhasil disimpan');
     }
 

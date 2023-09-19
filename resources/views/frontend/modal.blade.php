@@ -35,7 +35,6 @@
                                         <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
                                             <input type="hidden" name="seragam_id" value="{{$item->id}}">
                                             @foreach ($item->seragam_detail as $ukuran)
-                                                <input type="hidden" name="seragam_detail_id[{{$ukuran->ukuran}}]" value="{{$ukuran->id}}">
                                                 <input type="radio" class="btn-check" value="{{$ukuran->ukuran}}" name="ukuran[{{$item->id}}]" id="ukuran{{$ukuran->id}}" autocomplete="off" required>
                                                 <label class="btn btn-outline-primary" for="ukuran{{$ukuran->id}}">{{$ukuran->ukuran}}</label>
                                             @endforeach

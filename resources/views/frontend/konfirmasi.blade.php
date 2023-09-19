@@ -24,8 +24,9 @@
                                 <th scope="col" width="5">#</th>
                                 <th scope="col" width="40">Barang</th>
                                 <th scope="col" width="10">Qty</th>
-                                <th scope="col" width="20">Hrg. Satuan</th>
-                                <th scope="col" width="20">Subtotal</th>
+                                <th scope="col" width="10">Hrg. Satuan</th>
+                                <th scope="col" width="10">Subtotal</th>
+                                <th scope="col" width="20">Catatan</th>
                             </tr>
                         </thead>
                         <tbody class="table-group-divider">
@@ -35,10 +36,11 @@
                             @forelse ($Keranjang as $item) 
                                 <tr>
                                     <th scope="row">{{$no++}}</th>
-                                    <td>{{$item->seragam_detail->seragam->nama_seragam}} ({{$item->ukuran}})</td>
+                                    <td>{{$item->seragam_detail->seragam->nama_seragam}} ({{$item->seragam_detail->ukuran}})</td>
                                     <td class="text-center">{{$item->jumlah}}</td>
                                     <td>{{number_format($item->seragam_detail->harga)}}</td>
                                     <td>{{number_format($item->subtotal)}}</td>
+                                    <td>{{$item->catatan}}</td>
                                 </tr>
                             @empty
                                 <tr>
