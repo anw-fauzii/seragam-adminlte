@@ -57,7 +57,7 @@ class FrontEndController extends Controller
         }
         Keranjang::where('ip_pelanggan', $request->getClientIp())->delete();
 
-        $pdf = PDF::loadView('frontend.nota', compact('Keranjang'));
+        $pdf = PDF::loadView('frontend.nota', compact('pesanan'))->setPaper('a5', 'portrait');
         $pdfPath = storage_path('app/public/notaPembelian/' . $pesanan->kode . '.pdf');
         $pdf->save($pdfPath);
         $pdfUrl = url('storage/notaPembelian/' . $pesanan->kode . '.pdf');

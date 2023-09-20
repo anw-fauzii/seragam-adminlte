@@ -21,4 +21,9 @@ class Pesanan extends Model
             $model->kode = "PSPI-" . str_pad($model->id, '5', '0', STR_PAD_LEFT);
         });
     }
+
+    public function pesanan_detail()
+    {
+        return $this->hasMany(PesananDetail::class);
+    }
 }
