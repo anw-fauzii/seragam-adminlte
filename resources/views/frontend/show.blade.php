@@ -146,6 +146,9 @@
                             @include('frontend.modal')
                         @endforeach
                     </div>
+                    <div class="pagination-container text-center">
+                        {{ $Seragam->links() }}
+                    </div>
                 </div>
             </div>
         </div>

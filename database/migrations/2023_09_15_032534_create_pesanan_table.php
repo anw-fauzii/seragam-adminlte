@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('nama');
             $table->string('kelas');
             $table->integer('total_harga');
+            $table->enum('status', ['1', '0']);
             $table->timestamps();
         });
     }

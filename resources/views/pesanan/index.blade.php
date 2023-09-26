@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Seragam')
+@section('title', 'Pesanan')
 
 @section('content_header')
 <div class="container-fluid">
@@ -11,7 +11,7 @@
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
-                <li class="breadcrumb-item active">Seragam</li>
+                <li class="breadcrumb-item active">Pesanan</li>
             </ol>
         </div>
     </div>
@@ -39,7 +39,7 @@
                 @php
                     $no=1;
                 @endphp
-                @forelse ($seragam as $item)
+                @forelse ($Pesanan as $item)
                     <tr>
                         <td>{{$no++}}</td>
                         @if($item->kategori == 1)
@@ -52,17 +52,16 @@
                         <td>{{$item->nama_seragam}}</td>
                         <td>
                             <button type="button" class="btn btn-sm bg-gradient-primary " data-toggle="modal" data-target="#edit{{$item->id}}">
-                                <i class="fas fa-pencil-alt"></i>
+                                <i class="fas fa-edit"></i>
                             </button>
-                            <button type="button" class="btn btn-sm bg-gradient-warning " data-toggle="modal" data-target="#show{{$item->id}}">
+                            <button type="button" class="btn btn-sm bg-gradient-success " data-toggle="modal" data-target="#show{{$item->id}}">
                                 <i class="fas fa-info-circle"></i>
                             </button>
-                            @include('seragamDetail.show')
-                            @include('seragam.edit')
                             <a href="#" type="button"  data-id="{{ $item->id }}" class="btn btn-sm bg-gradient-danger delete">
                                 <i class="fas fa-trash"></i>
                             </a>
                         </td>
+                        <td></td>
                     </tr>
                 @empty
                 @endforelse
@@ -70,7 +69,6 @@
         </table>
     </div>
 </div>
-@include('seragam.create')
 @stop
 
 @section('css')

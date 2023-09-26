@@ -22,7 +22,7 @@ class FrontEndController extends Controller
     public function list(Request $request, $id)
     {
         $Keranjang = Keranjang::where('ip_pelanggan', $request->getClientIp())->get();
-        $Seragam = Seragam::where('kategori', $id)->get();
+        $Seragam = Seragam::where('kategori', $id)->simplePaginate(3);
         return view('frontend.show', compact('Seragam', 'Keranjang'));
     }
 
@@ -61,6 +61,6 @@ class FrontEndController extends Controller
         $pdfPath = storage_path('app/public/notaPembelian/' . $pesanan->kode . '.pdf');
         $pdf->save($pdfPath);
         $pdfUrl = url('storage/notaPembelian/' . $pesanan->kode . '.pdf');
-        return redirect()->route('welcome')->with('pdfUrl', $pdfUrl)->with('success', 'Berhasil dipesan. Lihat filenya');;
+        return redirect()->route('welcome')->with('pdfUrl', $pdfUrl)->with('success', 'Berhasil dipesan. Invoice otomoatis didownlaod');
     }
 }

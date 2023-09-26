@@ -126,7 +126,7 @@
                             <div class="banner-overlay">
                                 <div class="banner-text">
                                     <h4>Seragam SD</h4>
-                                    <a href="{{route('listSeragam',3)}}" class="btn btn-primary">Shop Now</a>
+                                    <a href="{{route('listSeragam',3)}}" class="btn btn-primary">Pilih</a>
                                 </div>
                             </div>
                         </div>
@@ -135,7 +135,7 @@
                             <div class="banner-overlay">
                                 <div class="banner-text">
                                     <h4>Seragam TK</h4>
-                                    <a href="{{route('listSeragam',2)}}" class="btn btn-primary">Shop Now</a>
+                                    <a href="{{route('listSeragam',2)}}" class="btn btn-primary">Pilih</a>
                                 </div>
                             </div>
                         </div>
@@ -144,7 +144,7 @@
                             <div class="banner-overlay">
                                 <div class="banner-text">
                                     <h4>Seragam PG</h4>
-                                    <a href="{{route('listSeragam',1)}}" class="btn btn-primary">Shop Now</a>
+                                    <a href="{{route('listSeragam',1)}}" class="btn btn-primary">Pilih</a>
                                 </div>
                             </div>
                         </div>

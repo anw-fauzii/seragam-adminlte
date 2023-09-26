@@ -42,7 +42,12 @@
                             </a>
                         </li>
                     </ul>
-                  </li>
+                </li>
+                <li class="nav-item">
+                    <a href="{{route('pesanan.index')}}" class="nav-link {{(request()->is('pesanan')) ? 'active' :''}}">
+                        <i class="nav-icon fas fa-list"></i><p>Pesanan</p>
+                    </a>
+                </li>
             </ul>
         </nav>
     </div>

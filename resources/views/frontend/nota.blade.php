@@ -8,10 +8,9 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 10px;
+            margin: -40px;
             background-image: url('{{ public_path('storage/bg.png') }}');
-            background-size: 100% 100%; /* Atur ukuran gambar agar seluruh halaman tercakup */
+            background-size: 100%; /* Atur ukuran gambar agar seluruh halaman tercakup */
             background-repeat: no-repeat; /* Hindari pengulangan gambar */
             background-attachment: fixed; /* Biarkan gambar latar belakang tetap terlihat saat menggulir */
         }
@@ -29,10 +28,12 @@
 
         #header img {
             width: 110px;
-            margin-top: -20px;
+            padding-top: 25px;
         }
 
         table {
+           padding-left: 30px;
+           padding-right: 30px;
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
